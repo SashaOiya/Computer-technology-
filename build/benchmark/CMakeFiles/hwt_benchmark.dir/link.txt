@@ -1,1 +1,0 @@
-/usr/bin/c++ -m64 -O3 -DNDEBUG -m64 CMakeFiles/hwt_benchmark.dir/bench.cpp.o -o hwt_benchmark   -L/home/sasha/.conan2/p/b/bench5afb6ff8ba8da/p/lib  -Wl,-rpath,/home/sasha/.conan2/p/b/bench5afb6ff8ba8da/p/lib /home/sasha/.conan2/p/b/bench5afb6ff8ba8da/p/lib/libbenchmark.a -lpthread -lrt -lm 
