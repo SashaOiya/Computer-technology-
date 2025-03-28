@@ -1,0 +1,7 @@
+build/
+.vscode/
+tree.dot
+.cache/
+.venv/
+third_party/
+CMakeUserPresets.json
