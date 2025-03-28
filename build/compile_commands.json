@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/sasha/program/HWT/build",
+  "command": "/usr/bin/c++  -I/home/sasha/program/HWT/./includes -isystem /home/sasha/.conan2/p/cli1176dd194db6a54/p/include -m64 -O3 -DNDEBUG -std=c++20 -o CMakeFiles/set.dir/src/driver.cpp.o -c /home/sasha/program/HWT/src/driver.cpp",
+  "file": "/home/sasha/program/HWT/src/driver.cpp",
+  "output": "CMakeFiles/set.dir/src/driver.cpp.o"
+},
+{
+  "directory": "/home/sasha/program/HWT/build",
+  "command": "/usr/bin/c++  -I/home/sasha/program/HWT/./includes -isystem /home/sasha/.conan2/p/cli1176dd194db6a54/p/include -m64 -O3 -DNDEBUG -std=c++20 -o CMakeFiles/hwt.dir/src/driver.cpp.o -c /home/sasha/program/HWT/src/driver.cpp",
+  "file": "/home/sasha/program/HWT/src/driver.cpp",
+  "output": "CMakeFiles/hwt.dir/src/driver.cpp.o"
+},
+{
+  "directory": "/home/sasha/program/HWT/build/test/unit_tests",
+  "command": "/usr/bin/c++  -I/home/sasha/program/HWT/includes -isystem /home/sasha/.conan2/p/b/gtest22f3df43d0a7a/p/include -m64 -O3 -DNDEBUG -std=c++20 -o CMakeFiles/hwt_unit_test.dir/tests.cpp.o -c /home/sasha/program/HWT/test/unit_tests/tests.cpp",
+  "file": "/home/sasha/program/HWT/test/unit_tests/tests.cpp",
+  "output": "test/unit_tests/CMakeFiles/hwt_unit_test.dir/tests.cpp.o"
+},
+{
+  "directory": "/home/sasha/program/HWT/build/benchmark",
+  "command": "/usr/bin/c++ -DBENCHMARK_STATIC_DEFINE -I/home/sasha/program/HWT/includes -I/home/sasha/program/HWT/src -isystem /home/sasha/.conan2/p/b/bench5afb6ff8ba8da/p/include -m64 -O3 -DNDEBUG -std=c++20 -O3 -o CMakeFiles/hwt_benchmark.dir/bench.cpp.o -c /home/sasha/program/HWT/benchmark/bench.cpp",
+  "file": "/home/sasha/program/HWT/benchmark/bench.cpp",
+  "output": "benchmark/CMakeFiles/hwt_benchmark.dir/bench.cpp.o"
+}
+]

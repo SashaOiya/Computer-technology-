@@ -1,0 +1,7 @@
+TreeE2E 1 0.506764
+AVL_tree.copy_ctor 1 0.00367266
+AVL_tree.copy_assignment 1 0.00419998
+AVL_tree.move_ctor 1 0.00460401
+AVL_tree.move_assignment 1 0.00694371
+AVL_tree.range_based 1 0.00639511
+---

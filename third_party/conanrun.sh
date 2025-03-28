@@ -1,0 +1,1 @@
+. "/home/sasha/program/HWT/third_party/conanrunenv-release-x86_64.sh"

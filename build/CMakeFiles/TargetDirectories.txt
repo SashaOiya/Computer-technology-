@@ -1,0 +1,16 @@
+/home/sasha/program/HWT/build/CMakeFiles/set.dir
+/home/sasha/program/HWT/build/CMakeFiles/hwt.dir
+/home/sasha/program/HWT/build/CMakeFiles/test.dir
+/home/sasha/program/HWT/build/CMakeFiles/edit_cache.dir
+/home/sasha/program/HWT/build/CMakeFiles/rebuild_cache.dir
+/home/sasha/program/HWT/build/test/e2e_tests/CMakeFiles/test.dir
+/home/sasha/program/HWT/build/test/e2e_tests/CMakeFiles/edit_cache.dir
+/home/sasha/program/HWT/build/test/e2e_tests/CMakeFiles/rebuild_cache.dir
+/home/sasha/program/HWT/build/test/unit_tests/CMakeFiles/hwt_unit_test.dir
+/home/sasha/program/HWT/build/test/unit_tests/CMakeFiles/test.dir
+/home/sasha/program/HWT/build/test/unit_tests/CMakeFiles/edit_cache.dir
+/home/sasha/program/HWT/build/test/unit_tests/CMakeFiles/rebuild_cache.dir
+/home/sasha/program/HWT/build/benchmark/CMakeFiles/hwt_benchmark.dir
+/home/sasha/program/HWT/build/benchmark/CMakeFiles/test.dir
+/home/sasha/program/HWT/build/benchmark/CMakeFiles/edit_cache.dir
+/home/sasha/program/HWT/build/benchmark/CMakeFiles/rebuild_cache.dir

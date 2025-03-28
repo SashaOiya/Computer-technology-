@@ -1,0 +1,5 @@
+if(EXISTS "/home/sasha/program/HWT/build/test/unit_tests/hwt_unit_test[1]_tests.cmake")
+  include("/home/sasha/program/HWT/build/test/unit_tests/hwt_unit_test[1]_tests.cmake")
+else()
+  add_test(hwt_unit_test_NOT_BUILT hwt_unit_test_NOT_BUILT)
+endif()
