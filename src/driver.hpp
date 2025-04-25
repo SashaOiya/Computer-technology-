@@ -1,15 +1,15 @@
 #pragma once
 
+#include <deque>
 #include <iostream>
 #include <iterator>
 #include <stdexcept>
 #include <type_traits>
 #include <vector>
-#include <deque>
+#include <sstream>
+#include <sqlite3.h>
 
 #include "hwt.hpp"
-
-namespace {
 
 using KeyT = int;
 
@@ -25,83 +25,53 @@ std::size_t range_query(const Tree_t& tree, const KeyT fst, const KeyT snd) {
 }
 
 template <typename Tree_t>
-std::vector<KeyT> get_answer( std::pair<std::deque<char>, std::deque<int>> data) { //std::string &dot_path, std::string &output_file) {
-  Tree_t tree = {};
-  //FileType file(input_file);
-  std::vector<KeyT> answers = {1, 2, 3};
-//
- //   char type = 0;
- //   while (file>>type) {
- //       if (type == 'k') {
- //         KeyT key;
- //         file>>key;
-//
- //           tree.insert(key);
- //       } else if (type == 'q') {
- //         KeyT key1, key2;
- //         file >> key1;
- //         file>>key2;
-//
- //           //std::cin >> key1;
- //           //if (!std::cin.good()) {
- //           //    throw std::runtime_error("Invalid key1");
- //           //}
- //           //std::cin >> key2;
- //           //if (!std::cin.good()) {
- //           //    throw std::runtime_error("Invalid key2");
- //           //}
-//
- //           answers.push_back(range_query<Tree_t>(tree, key1, key2));
- //       } else {
- //           throw std::runtime_error("Invalid type");
- //       }
- //   }
+auto get_answer(std::pair<std::deque<char>, std::deque<int>> data) {
+    Tree_t tree = {};
+    std::vector<KeyT> answers = {};
+    std::ostringstream oss;
 
-#if defined(AVL_TREE)
-    if (!dot_path.empty()) tree.graph_dump(dot_path, output_file);
-#endif
+    if (data.first.empty() || data.second.empty()) {
+        oss<< "Empty data";
+        return oss.str();
+    }
 
-  return answers;
-}
+    while (!data.first.empty()) {
+        auto type = data.first.front();
+        data.first.pop_front();
 
-} // namespace
-
-template <typename FileType>
-auto get_data( std::string input_file) { //std::string &dot_path, std::string &output_file) {
-  FileType file(input_file);
-  std::pair<std::deque<char>, std::deque<int>> data = {};
-
-    char type = 0;
-    while (file>>type) {
         if (type == 'k') {
-          KeyT key;
-          file>>key;
+            if (data.second.empty()) {
+                oss<< "Invalid key";
+                return oss.str();
+            }
 
-          data.first.push_back(type);
-          data.second.push_back(key);
+            KeyT key = data.second.front();
+            data.second.pop_front();
+
+            tree.insert(key);
         } else if (type == 'q') {
-          KeyT key1, key2;
-          file >> key1;
-          file >> key2;
+            if (data.second.size() < 2) {
+                oss << "Invalid key size";
+                return oss.str();
+            }
+            KeyT key1 = data.second.front();
+            data.second.pop_front();
+            
+            KeyT key2 = data.second.front();
+            data.second.pop_front();
 
-          data.first.push_back(type);
-          data.second.push_back(key1);
-          data.second.push_back(key1);
-
-            //std::cin >> key1;
-            //if (!std::cin.good()) {
-            //    throw std::runtime_error("Invalid key1");
-            //}
-            //std::cin >> key2;
-            //if (!std::cin.good()) {
-            //    throw std::runtime_error("Invalid key2");
-            //}
-
-            //answers.push_back(range_query<Tree_t>(tree, key1, key2));
+            answers.push_back(range_query<Tree_t>(tree, key1, key2));
         } else {
             throw std::runtime_error("Invalid type");
         }
     }
 
-    return data;
+    for (size_t i = 0; i < answers.size(); ++i) {
+        oss << answers[i];
+        if (i != answers.size() - 1) {
+            oss << " ";
+        }
+    }
+
+    return oss.str();
 }

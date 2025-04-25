@@ -3,6 +3,7 @@
 #include <set>
 
 #include "driver.hpp"
+#include <sqlite3.h>
 #include "hwt.hpp"
 
 static void BM_MyTree(benchmark::State& state) {

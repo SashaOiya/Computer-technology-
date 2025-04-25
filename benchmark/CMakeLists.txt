@@ -1,6 +1,7 @@
 add_executable(hwt_benchmark
 			   bench.cpp)
 
+target_link_libraries(hwt_benchmark PRIVATE sqlite3)
 target_compile_options(hwt_benchmark PRIVATE -O3)
 
 target_link_libraries(hwt_benchmark
