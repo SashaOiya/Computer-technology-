@@ -31,6 +31,8 @@ class SearchTree final {
     using reference = value_type &;
     using const_reference = const value_type &;
 
+    SearchTree() = default;
+
     SearchTree(std::initializer_list<value_type> l) {
         nodes_.reserve(l.size());
 

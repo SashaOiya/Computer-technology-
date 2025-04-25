@@ -15,7 +15,7 @@ static void BM_MyTree(benchmark::State& state) {
 
         std::string dot_path, output_file;
         for (auto _ : state) {
-            get_answer<avl_tree::SearchTree<KeyT>>(dot_path, output_file);
+            //get_answer<avl_tree::SearchTree<KeyT>>(dot_path, output_file);
         }
     } catch (const std::exception& e) {
         std::cerr << "Error : " << e.what() << '\n';
@@ -34,7 +34,7 @@ static void BM_StdSet(benchmark::State& state) {
 
         std::string dot_path, output_file;
         for (auto _ : state) {
-            get_answer<std::set<KeyT>>(dot_path, output_file);
+            //get_answer<std::set<KeyT>>(dot_path, output_file);
         }
     } catch (const std::exception& e) {
         std::cerr << "Error : " << e.what() << '\n';
