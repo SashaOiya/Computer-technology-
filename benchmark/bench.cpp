@@ -3,12 +3,12 @@
 #include <set>
 
 #include "driver.hpp"
-#include <sqlite3.h>
+//#include <sqlite3.h>
 #include "hwt.hpp"
 
 static void BM_MyTree(benchmark::State& state) {
     try {
-        std::ifstream file("../benchmark/data/test7.txt");
+        std::ifstream file("../benchmark/data/test0.txt");
         if (!file) {
             throw std::runtime_error("Reading file error");
         }
@@ -16,7 +16,7 @@ static void BM_MyTree(benchmark::State& state) {
 
         std::string dot_path, output_file;
         for (auto _ : state) {
-            //get_answer<avl_tree::SearchTree<KeyT>>(dot_path, output_file);
+            get_answer<avl_tree::SearchTree<KeyT>>(dot_path, output_file);
         }
     } catch (const std::exception& e) {
         std::cerr << "Error : " << e.what() << '\n';
@@ -27,7 +27,7 @@ static void BM_MyTree(benchmark::State& state) {
 
 static void BM_StdSet(benchmark::State& state) {
     try {
-        std::ifstream file("../benchmark/data/test7.txt");
+        std::ifstream file("../benchmark/data/test0.txt");
         if (!file) {
             throw std::runtime_error("Reading file error");
         }
@@ -35,7 +35,7 @@ static void BM_StdSet(benchmark::State& state) {
 
         std::string dot_path, output_file;
         for (auto _ : state) {
-            //get_answer<std::set<KeyT>>(dot_path, output_file);
+            get_answer<std::set<KeyT>>(dot_path, output_file);
         }
     } catch (const std::exception& e) {
         std::cerr << "Error : " << e.what() << '\n';
