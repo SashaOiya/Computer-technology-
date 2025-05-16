@@ -1,5 +1,4 @@
 #include <sqlite3.h>
-
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <filesystem>
@@ -7,9 +6,23 @@
 #include <iostream>
 #include <utility>
 #include <vector>
+#include <atomic>
+#include <thread>
 
 #include "front.hpp"
 #include "visual.hpp"
+
+std::atomic<bool> isExecutionStopped(false);  // Флаг остановки выполнения
+std::atomic<bool> isTestRunning(false);       // Флаг, показывающий, что тест в процессе выполнения
+
+void executeTest(Mode selectedMode, std::pair<std::deque<char>, std::deque<int>> inputData, std::string& resultLines) {
+    isTestRunning = true;
+    resultLines = "Выполнение...";
+    if (!isExecutionStopped) {
+        resultLines = processData(selectedMode, inputData);
+    }
+    isTestRunning = false;
+}
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Data Structure Comparator");
@@ -67,6 +80,15 @@ int main() {
     backButtonText.setPosition(320, 510);
     backButtonText.setFillColor(sf::Color::White);
 
+    // Кнопка остановки выполнения
+    sf::RectangleShape stopButton(sf::Vector2f(200, 50));
+    stopButton.setPosition(300, 450);
+    stopButton.setFillColor(sf::Color(255, 0, 0));
+
+    sf::Text stopButtonText("Stop Execution", font, 20);
+    stopButtonText.setPosition(330, 460);
+    stopButtonText.setFillColor(sf::Color::White);
+
     std::vector<std::string> dbTests = {"Test 1", "Test 2", "Test 3"};
 
     // Кнопки для выбора тестов
@@ -82,8 +104,7 @@ int main() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-            sf::Vector2f mousePos =
-                window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
+            sf::Vector2f mousePos = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
 
             if (currentState == FILE_INPUT) {
                 fileDialog.handleEvent(event);
@@ -93,7 +114,9 @@ int main() {
                         std::string filename = fileDialog.getFilename();
                         if (std::filesystem::exists(filename)) {
                             auto inputData = get_data_from_file<std::ifstream>(filename);
-                            resultLines = processData(selectedMode, inputData);
+                            // Запуск теста в отдельном потоке
+                            std::thread testThread(executeTest, selectedMode, std::move(inputData), std::ref(resultLines));
+                            testThread.detach();
                         } else {
                             resultLines = "Invalid file name";
                         }
@@ -104,7 +127,9 @@ int main() {
                 for (size_t i = 0; i < dbTestButtons.size(); ++i) {
                     if (dbTestButtons[i].first.getGlobalBounds().contains(mousePos)) {
                         auto inputData = get_data_from_db(dbTests[i]);
-                        resultLines = processData(selectedMode, inputData);
+                        // Запуск теста в отдельном потоке
+                        std::thread testThread(executeTest, selectedMode, std::move(inputData), std::ref(resultLines));
+                        testThread.detach();
                         currentState = RESULT_VIEW;
                     }
                 }
@@ -131,25 +156,14 @@ int main() {
                     if (backButton.getGlobalBounds().contains(mousePos)) {
                         currentState = MODE_SELECTION;
                         resultLines.clear();
+                        isExecutionStopped = false;  
+                    }
+                    if (stopButton.getGlobalBounds().contains(mousePos)) {
+                        isExecutionStopped = false;  
+                        currentState = MODE_SELECTION;  
+                        resultLines.clear();  
                     }
                 }
-            }
-        }
-
-        sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-        if (currentState == FILE_INPUT) {
-            fileDialog.highlightButton(mousePos);
-        } else if (currentState == MODE_SELECTION) {
-            for (auto& btn : modeButtons) {
-                btn.first.setFillColor(btn.first.getGlobalBounds().contains(mousePos)
-                                           ? sf::Color(100, 100, 100)
-                                           : sf::Color(70, 70, 70));
-            }
-        } else if (currentState == INPUT_SELECTION) {
-            for (auto& btn : inputButtons) {
-                btn.first.setFillColor(btn.first.getGlobalBounds().contains(mousePos)
-                                           ? sf::Color(100, 100, 100)
-                                           : sf::Color(70, 70, 70));
             }
         }
 
@@ -188,6 +202,8 @@ int main() {
             window.draw(resultText);
             window.draw(backButton);
             window.draw(backButtonText);
+            window.draw(stopButton);          // Добавляем кнопку "Stop Execution"
+            window.draw(stopButtonText);      // Отображаем текст кнопки
         }
 
         window.display();
